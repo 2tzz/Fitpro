@@ -5,7 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
 }
-
+//has a sdk error neeed to find what it is
 android {
     compileSdk 32
 

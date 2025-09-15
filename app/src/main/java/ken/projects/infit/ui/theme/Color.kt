@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Color
 
 
 val lightBlue = Color(0xFF183446)
-val holoGreen = Color(0xFF9ff39f)
+val holoGreen = Color(0xFF72A5F7)
 val holoRed = Color(0xFFFF4444)
 val darkBlue = Color(0xFF002633)
 val white = Color(0xFFFFFFFF)
