@@ -2,7 +2,6 @@ package ken.projects.infit.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-
 val lightBlue = Color(0xFF183446)
 val holoGreen = Color(0xFF72A5F7)
 val holoRed = Color(0xFFFF4444)
