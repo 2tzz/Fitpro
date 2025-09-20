@@ -81,4 +81,9 @@
     <string name="equipment">equipment</string>
     <string name="logout">Logout</string>
     <string name="logout_alert_text">are you sure you want to logout?</string>
+
+    <string name="whats_your_gender">What’s Your gender ?</string>
+    <string name="how_old_are_you">Select your birthday</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
