@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InFit</string>
+    <string name="app_name">FitPro</string>
     <string name="delete_workout_plan">Delete Workout Plan?</string>
     <string name="data_deletion_alert_text">All your saved data will be lost</string>
     <string name="confirm">confirm</string>
@@ -66,6 +66,7 @@
     <string name="workout_details">Workout Details</string>
     <string name="stats_details">Stats Details</string>
     <string name="profile">Profile</string>
+    <string name="ai">Ai coach</string>
     <string name="beginner">Beginner</string>
     <string name="intermediate">Intermediate</string>
     <string name="advanced">Advanced</string>

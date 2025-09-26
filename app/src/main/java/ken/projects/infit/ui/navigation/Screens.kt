@@ -29,7 +29,7 @@ sealed class Screens(
 
     object StatsDetails : Screens(route = "stats_details_screen", title = R.string.stats_details)
     object Profile :
-        Screens(route = "profile_screen", title = R.string.profile, icon = Icons.Rounded.Person)
+        Screens(route = "profile_screen", title = R.string.ai, icon = Icons.Rounded.Chat)
 
     object Exercises : Screens(
         route = "exercises_screen",
