@@ -230,15 +230,24 @@ fun HomeScreen(
                 var isTodayWorkoutDay: Boolean by remember { mutableStateOf(false) }
 
                 workoutPlan.workouts?.let { workouts ->
+                    val today = LocalDateTime.now()
+                    val selectedDate = calendarSelection
 
-                    isTodayWorkoutDay =
-                        if (selectedDay.dayOfYear == LocalDateTime.now().dayOfYear) {
-                            workouts.contains(selectedDay.dayOfWeek)
-                        } else false
+                    // Debug logging to see what's happening
+                    LaunchedEffect(workouts, selectedDate) {
+                        Log.d("DATE_DEBUG", "Today: ${today.dayOfWeek} (${today.dayOfYear})")
+                        Log.d("DATE_DEBUG", "Selected: ${selectedDate.dayOfWeek} (${selectedDate.dayOfYear})")
+                        Log.d("DATE_DEBUG", "Workout days: $workouts")
+                    }
 
-                    isWorkoutDay =
-                        workouts.contains(calendarSelection.dayOfWeek)
+                    // Is the selected date a workout day?
+                    isWorkoutDay = workouts.contains(selectedDate.dayOfWeek)
 
+                    // Is today a workout day AND are we looking at today?
+                    isTodayWorkoutDay = (selectedDate.dayOfYear == today.dayOfYear) &&
+                            workouts.contains(today.dayOfWeek)
+
+                    Log.d("DATE_DEBUG", "isWorkoutDay: $isWorkoutDay, isTodayWorkoutDay: $isTodayWorkoutDay")
                 }
 
                 Column(
@@ -258,7 +267,7 @@ fun HomeScreen(
                     )
                     CalendarDisplay(
                         modifier = Modifier,
-                        workoutPlan.workouts,
+                        workoutDays = workoutPlan.workouts ?: arrayListOf(),  // ✅ Correct parameter name
                         workoutViewModel = workoutViewModel
                     )
                     Heading(
@@ -285,7 +294,7 @@ fun HomeScreen(
                             iconEndClick = {
                                 openDialog = true
                             },
-                            isWorkoutDay = isTodayWorkoutDay
+                            isWorkoutDay = true
                         )
                     } else {
                         RestDayView(

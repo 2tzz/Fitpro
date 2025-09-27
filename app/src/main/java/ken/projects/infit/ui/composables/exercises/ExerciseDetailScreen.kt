@@ -178,14 +178,19 @@ fun ExerciseDetailScreen(
                 items(exercises) { exercise ->
                     val context = LocalContext.current
                     ExerciseItem(exercise = exercise, modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_SEARCH)
-                        intent.setPackage("com.google.android.youtube")
-                        intent.putExtra("query", "${exercise.name} tutorial gym")
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        context.startActivity(intent)
+                        try {
+                            val intent = Intent(Intent.ACTION_SEARCH)
+                            intent.setPackage("com.google.android.youtube")
+                            intent.putExtra("query", "${exercise.name} tutorial gym")
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                            context.startActivity(intent)
+                        } catch (e: android.content.ActivityNotFoundException) {
+                            // Fallback: open YouTube in browser
+                            val webIntent = Intent(Intent.ACTION_VIEW)
+                            webIntent.data = android.net.Uri.parse("https://www.youtube.com/results?search_query=${exercise.name} tutorial gym")
+                            context.startActivity(webIntent)
+                        }
                     })
-                    Spacer(modifier = Modifier.height(20.dp))
-
                 }
 
             }

@@ -161,8 +161,11 @@ fun WorkoutScreen(
             }
         }
 
-        if(workoutState.exerciseItems?.size!! > 0)
-        exerciseProgress = "${currentSetItemIndex + 1}/${workoutState.exerciseItems?.size}"
+        workoutState.exerciseItems?.let { exerciseItems ->
+            if (exerciseItems.isNotEmpty()) {
+                exerciseProgress = "${currentSetItemIndex + 1}/${exerciseItems.size}"
+            }
+        }
 
         Column(
             Modifier

@@ -30,7 +30,7 @@ import kotlin.collections.ArrayList
 @Composable
 fun CalendarDisplay(
     modifier: Modifier = Modifier,
-    workoutDays: ArrayList<DayOfWeek>?,
+    workoutDays: List<DayOfWeek>?,  // ✅ Use List interface
     workoutViewModel: WorkoutViewModel = viewModel()
 ) {
 
@@ -44,7 +44,7 @@ fun CalendarDisplay(
 
                 var isSelected by remember { mutableStateOf(false) }
 
-                val colorFilter = if (workoutDays.contains(date.dayOfWeek)) {
+                val colorFilter = if (workoutDays?.contains(date.dayOfWeek) == true) {
                     ColorFilter.tint(holoRed)
                 } else {
                     ColorFilter.tint(Color.Transparent)
