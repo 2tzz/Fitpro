@@ -2,6 +2,7 @@ package ken.projects.infit.ui.composables.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.TextFieldDefaults.textFieldColors
@@ -12,11 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -24,6 +22,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import ken.projects.infit.R
 import ken.projects.infit.ui.composables.RegularButton
@@ -64,12 +63,7 @@ fun LoginScreen(
 
     Surface(
         color = veryDarkBlue.copy(0.7f),
-        modifier = Modifier
-            .paint(
-                painterResource(id = R.drawable.login_background),
-                contentScale = ContentScale.Crop,
-            )
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
     )
     {
 
@@ -98,7 +92,8 @@ fun LoginScreen(
                 ) {
 
                 Heading(
-                    text = stringResource(R.string.login), modifier = Modifier
+                    text = stringResource(R.string.login),
+                    modifier = Modifier
                         .align(Alignment.Start)
                         .padding(bottom = 20.dp)
                         .fillMaxWidth()
@@ -126,28 +121,34 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .clickable { navController.navigate(Screens.Signup.route) }
                 )
-                RegularButton(
-                    Modifier
-                        .padding(top = 20.dp)
-                        .align(CenterHorizontally),
-                    stringResource(R.string.login).lowercase(),
+
+                // Replaced RegularButton with large button like before
+                Button(
                     onClick = {
                         userViewModel.signInUser(
                             userEmail = eMail,
                             userPassword = password
                         )
-
                         eMail = ""
                         password = ""
-
-
-                    }
-                )
-
-
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(top = 20.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFF72A5F7) // Your blue color
+                    ),
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        "Login",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
-
-
     }
 }
 
@@ -169,12 +170,22 @@ fun InputField(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-
-                )
-
+                tint = Color.Black // Changed icon color to black
+            )
         },
-        colors = textFieldColors(backgroundColor = white, textColor = Color.Black),
-        label = { Text(text = placeholder) },
+        colors = textFieldColors(
+            backgroundColor = white,
+            textColor = Color.Black, // Changed text color to black
+            placeholderColor = Color.Gray, // Placeholder color
+            focusedLabelColor = Color.Black, // Label color when focused
+            unfocusedLabelColor = Color.Gray // Label color when not focused
+        ),
+        label = {
+            Text(
+                text = placeholder,
+                color = Color.Black // Label text color
+            )
+        },
         modifier = Modifier.fillMaxWidth(),
         maxLines = 1,
         keyboardOptions = KeyboardOptions(
@@ -184,9 +195,7 @@ fun InputField(
         visualTransformation = if (password) PasswordVisualTransformation() else {
             VisualTransformation.None
         }
-
     )
-
 }
 
 @Composable
@@ -200,14 +209,14 @@ fun SignUpRow(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.sign_up_text),
             fontWeight = FontWeight.Normal,
-            color = white,
+            color = Color.Black, // Changed to black
             fontFamily = outfit
         )
         Spacer(modifier = Modifier.width(5.dp))
         Text(
             text = stringResource(R.string.sign_up),
             fontWeight = FontWeight.Bold,
-            color = holoGreen,
+            color = Color(0xFF72A5F7), // Changed to your blue color
             fontFamily = outfit
         )
     }

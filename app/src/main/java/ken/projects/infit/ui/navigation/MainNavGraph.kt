@@ -12,7 +12,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -107,9 +106,6 @@ fun NavGraphBuilder.mainNavGraph(
             WorkoutPlanSetUpScreen(workoutViewModel = workoutViewModel, navController)
             bottomBarState.value = true
         }
-
-
-
     }
 }
 
@@ -128,7 +124,8 @@ fun BottomNavBar(
     val currentDestination = navBackStackEntry?.destination
 
     AnimatedVisibility(
-        visible = bottomBarState.value, enter = slideInVertically(initialOffsetY = { it }),
+        visible = bottomBarState.value,
+        enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
     ) {
         BottomNavigation(
@@ -140,23 +137,16 @@ fun BottomNavBar(
                 .height(70.dp),
             elevation = 10.dp,
             backgroundColor = holoGreen,
-
-
-            ) {
-
+        ) {
             screens.forEach {
-
                 this@BottomNavigation.AddItem(
                     screens = it,
                     currentDestination = currentDestination,
                     navController = navController
                 )
             }
-
-
         }
     }
-
 }
 
 @Composable
@@ -165,12 +155,10 @@ fun RowScope.AddItem(
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
-
     BottomNavigationItem(
         label = {
-            Text(text = stringResource(id = screens.title))
+            Text(text = screens.title) // CHANGED: Direct string instead of stringResource
         },
-
         onClick = {
             navController.navigate(screens.route) {
                 popUpTo(navController.graph.findStartDestination().id)
@@ -181,7 +169,5 @@ fun RowScope.AddItem(
         selected = currentDestination?.hierarchy?.any { it.route == screens.route } == true,
         selectedContentColor = veryDarkBlue,
         unselectedContentColor = veryDarkBlue.copy(ContentAlpha.disabled),
-
-
-        )
+    )
 }
